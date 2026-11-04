@@ -2,9 +2,8 @@
    ELECTRICISTA · JavaScript único
    1. Datos de contacto en un solo lugar (WhatsApp y teléfono)
    2. Menú del celular
-   3. Tablero interactivo del hero
-   4. Formulario: arma un mensaje de WhatsApp (no hay servidor)
-   5. Botón flotante de WhatsApp y año del footer
+   3. Formulario: arma un mensaje de WhatsApp (no hay servidor)
+   4. Botón flotante de WhatsApp y año del footer
    ========================================================================== */
 
 (function () {
@@ -18,7 +17,6 @@
 
   var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
   var $$ = function (sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); };
-  var sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var enlaceWhatsApp = function (texto) {
     return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(texto);
@@ -66,71 +64,7 @@
 
 
   /* ------------------------------------------------------------------------
-     3. TABLERO INTERACTIVO
-     Cada térmica es un botón. Con la general baja no hay tensión en ningún
-     circuito, aunque las demás queden arriba (como en un tablero real).
-     Al cargar, los circuitos se energizan de a uno: es el único movimiento
-     que no depende de que la persona toque algo.
-     ------------------------------------------------------------------------ */
-  var tablero = $('#tablero');
-
-  if (tablero) {
-    var estado = $('#tablero-estado');
-    var CIRCUITOS = ['luz', 'tomas', 'aire', 'cocina'];
-    var llaves = { general: true, luz: true, tomas: true, aire: true, cocina: true };
-
-    var dibujar = function () {
-      $$('.termica', tablero).forEach(function (btn) {
-        var activo = llaves[btn.dataset.circuito];
-        btn.classList.toggle('is-on', activo);
-        btn.setAttribute('aria-pressed', String(activo));
-      });
-
-      var conTension = 0;
-      CIRCUITOS.forEach(function (c) {
-        var energizado = llaves.general && llaves[c];
-        var carga = $('[data-carga="' + c + '"]', tablero);
-        if (carga) carga.classList.toggle('is-on', energizado);
-        if (energizado) conTension++;
-      });
-
-      tablero.classList.toggle('is-corte', !llaves.general);
-      tablero.classList.toggle('is-parcial', llaves.general && conTension > 0 && conTension < CIRCUITOS.length);
-
-      if (!llaves.general) estado.textContent = 'Sin tensión: ya se puede trabajar seguro';
-      else if (conTension === CIRCUITOS.length) estado.textContent = 'Todo energizado';
-      else if (conTension === 0) estado.textContent = 'Ningún circuito con tensión';
-      else estado.textContent = conTension + ' de ' + CIRCUITOS.length + ' circuitos con tensión';
-    };
-
-    tablero.addEventListener('click', function (e) {
-      var btn = e.target.closest('.termica');
-      if (!btn) return;
-      llaves[btn.dataset.circuito] = !llaves[btn.dataset.circuito];
-      dibujar();
-    });
-
-    if (!sinMovimiento) {
-      // Arranca sin tensión y energiza en orden. Se avisa al lector de pantalla recién al final.
-      var orden = ['general'].concat(CIRCUITOS);
-      Object.keys(llaves).forEach(function (k) { llaves[k] = false; });
-      estado.setAttribute('aria-live', 'off');
-      dibujar();
-      orden.forEach(function (c, i) {
-        setTimeout(function () {
-          llaves[c] = true;
-          dibujar();
-          if (i === orden.length - 1) estado.setAttribute('aria-live', 'polite');
-        }, 450 + i * 260);
-      });
-    } else {
-      dibujar();
-    }
-  }
-
-
-  /* ------------------------------------------------------------------------
-     4. FORMULARIO -> WHATSAPP
+     3. FORMULARIO -> WHATSAPP
      ------------------------------------------------------------------------ */
   var form = $('#form');
 
@@ -178,7 +112,7 @@
 
 
   /* ------------------------------------------------------------------------
-     5. BOTÓN FLOTANTE Y AÑO
+     4. BOTÓN FLOTANTE Y AÑO
      El botón de WhatsApp se esconde cuando ya se ve el formulario o el footer.
      ------------------------------------------------------------------------ */
   var wa = $('#wa');
