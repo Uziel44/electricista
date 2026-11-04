@@ -1,0 +1,360 @@
+/* ==========================================================================
+   ELECTRICISTA · HOJA DE ESTILOS ÚNICA
+   --------------------------------------------------------------------------
+   Idea de diseño: el código de colores real de los cables.
+     celeste        = neutro   -> acción principal, "instalar"
+     marrón         = fase     -> "reparar"
+     verde-amarillo = tierra   -> "medir y certificar" y los divisores
+   Tipografía: Archivo (variable, en ancho condensado) para títulos y
+   Figtree para el texto.
+   El tablero del hero es lo único que se mueve: el resto es quieto a propósito.
+   ========================================================================== */
+
+/* ---------- 1. Variables ---------- */
+:root {
+  --hormigon:   #EDF0F2;   /* fondo base */
+  --blanco:     #FFFFFF;
+  --tinta:      #14202C;   /* texto y bandas oscuras */
+  --tinta-2:    #3C4A58;   /* texto secundario */
+  --linea:      #D3D9DE;
+
+  --neutro:     #2A73AB;   /* celeste: acción principal */
+  --neutro-osc: #1F5C8C;
+  --neutro-cl:  #DCEBF6;
+  --fase:       #6B4226;   /* marrón */
+  --grafito:    #4A5560;
+  --tierra-1:   #A8C400;   /* verde-amarillo (cable de tierra) */
+  --tierra-2:   #1E9A4B;
+  --alerta:     #C8341F;
+  --whatsapp:   #1FA855;
+
+  --display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --ancho: 1160px;
+  --radio: 6px;
+  --alto-header: 72px;
+}
+
+/* ---------- 2. Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--alto-header) + 12px); }
+body {
+  margin: 0;
+  background: var(--hormigon);
+  color: var(--tinta);
+  font: 400 1.0625rem/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+:focus-visible { outline: 3px solid var(--neutro); outline-offset: 3px; border-radius: 3px; }
+
+.wrap { width: 100%; max-width: var(--ancho); margin-inline: auto; padding-inline: 24px; }
+
+.skip-link {
+  position: absolute; left: 16px; top: -64px; z-index: 300;
+  background: var(--tinta); color: #fff; padding: 10px 16px; border-radius: var(--radio);
+}
+.skip-link:focus { top: 12px; }
+
+/* Títulos: Archivo en ancho condensado, apretados */
+.h2, .hero__title, .tablero__titulo, .servicio__nombre, .paso__titulo, .brand__name, .footer__nombre {
+  font-family: var(--display);
+  font-stretch: 78%;
+  letter-spacing: -0.005em;
+}
+.h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.08; }
+.h2--claro { color: #fff; }
+
+/* Divisor con el color del cable de tierra */
+.tierra {
+  height: 10px;
+  background: repeating-linear-gradient(-45deg, var(--tierra-1) 0 12px, var(--tierra-2) 12px 24px);
+}
+
+/* ---------- 3. Botones ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; text-align: center;
+  min-height: 48px; padding: 12px 24px;
+  border: 2px solid transparent; border-radius: var(--radio);
+  font: 600 1rem/1.2 var(--body);
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.btn--big { min-height: 56px; padding: 14px 28px; }
+.btn--primary { background: var(--neutro); color: #fff; }
+.btn--primary:hover { background: var(--neutro-osc); }
+.btn--ghost { border-color: var(--tinta); color: var(--tinta); background: transparent; }
+.btn--ghost:hover { background: var(--tinta); color: #fff; }
+.btn--alerta { background: var(--alerta); color: #fff; }
+.btn--alerta:hover { background: #A42A18; }
+.btn--ghost-claro { border-color: rgb(255 255 255 / .7); color: #fff; }
+.btn--ghost-claro:hover { background: #fff; color: var(--tinta); }
+
+/* ---------- 4. Barra de urgencias y header ---------- */
+.topbar { background: var(--tinta); color: #fff; font-size: .9rem; }
+.topbar__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 40px; }
+.topbar__phone { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+
+.site-header { position: sticky; top: 0; z-index: 100; background: var(--blanco); border-bottom: 1px solid var(--linea); }
+.header__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: var(--alto-header); }
+
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--tinta); }
+.brand__mark { width: 36px; height: 36px; color: var(--neutro); flex: none; }
+.brand__name { font-size: 1.45rem; font-weight: 800; }
+
+.nav { display: flex; align-items: center; gap: 26px; }
+.nav__link { font-weight: 500; color: var(--tinta-2); padding-block: 8px; border-bottom: 2px solid transparent; }
+.nav__link:hover { color: var(--tinta); border-bottom-color: var(--tierra-2); }
+.nav__cta { min-height: 44px; padding: 10px 20px; }
+
+.burger { display: none; width: 48px; height: 48px; border: 0; background: none; padding: 0; position: relative; }
+.burger span { position: absolute; left: 12px; right: 12px; height: 2px; background: var(--tinta); transition: transform .2s ease, opacity .2s ease; }
+.burger span:nth-child(1) { top: 16px; }
+.burger span:nth-child(2) { top: 23px; }
+.burger span:nth-child(3) { top: 30px; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------- 5. Hero ---------- */
+.hero { padding-block: clamp(40px, 7vw, 88px); background: var(--hormigon); }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+
+.hero__title { font-size: clamp(2.5rem, 6vw, 4.4rem); font-weight: 800; line-height: 1; max-width: 15ch; }
+.hero__lead { margin-top: 22px; font-size: 1.2rem; color: var(--tinta-2); max-width: 52ch; }
+.hero__actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+.hero__facts { margin-top: 30px; display: grid; gap: 8px; font-weight: 500; }
+.hero__facts li { padding-left: 22px; position: relative; }
+.hero__facts li::before {
+  content: ""; position: absolute; left: 0; top: .55em; width: 12px; height: 4px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--tierra-1) 50%, var(--tierra-2) 50%);
+}
+
+/* ---------- 6. Tablero interactivo ---------- */
+.tablero {
+  background: var(--blanco); border: 2px solid var(--tinta); border-radius: 12px;
+  padding: 22px; box-shadow: 8px 8px 0 var(--tinta);
+}
+.tablero__cabecera { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.tablero__titulo { font-size: 1.5rem; font-weight: 700; }
+.tablero__estado { font-weight: 600; color: var(--tierra-2); }
+.tablero.is-corte .tablero__estado, .tablero.is-parcial .tablero__estado { color: var(--tinta-2); }
+
+.tablero__riel {
+  margin-top: 16px; padding: 16px 12px; border-radius: 8px;
+  background: #CBD3DA;                      /* riel DIN */
+  display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 8px;
+}
+.termica {
+  display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 10px;
+  min-height: 132px; padding: 12px 4px 10px;
+  background: #F7F9FA; border: 1.5px solid #8C98A3; border-radius: 6px;
+  transition: background-color .15s ease;
+}
+.termica:hover { background: #fff; }
+.termica__palanca {
+  position: relative; width: 26px; height: 56px; border-radius: 4px;
+  background: #4A5560; box-shadow: inset 0 0 0 3px #2B343D;
+}
+.termica__palanca::after {                  /* la palanca que sube y baja */
+  content: ""; position: absolute; left: 3px; right: 3px; height: 24px; border-radius: 3px;
+  background: #8C98A3; transition: top .18s ease, background-color .18s ease; top: 29px;
+}
+.termica.is-on .termica__palanca::after { top: 3px; background: var(--neutro); }
+.termica--general .termica__palanca::after { }
+.termica--general.is-on .termica__palanca::after { background: var(--fase); }
+.termica__nombre { font: 600 .78rem/1.1 var(--body); color: var(--tinta-2); }
+
+.tablero__cargas { margin-top: 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.carga {
+  display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 4px;
+  border-radius: 8px; background: #E4E9ED; color: #8C98A3; font: 600 .78rem/1.1 var(--body);
+  transition: background-color .25s ease, color .25s ease, box-shadow .25s ease;
+}
+.carga svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.carga.is-on { background: var(--neutro-cl); color: var(--neutro-osc); box-shadow: 0 0 0 2px var(--neutro) inset; }
+
+.tablero__nota { margin-top: 14px; font-size: .92rem; color: var(--tinta-2); }
+
+/* ---------- 7. Secciones y servicios ---------- */
+.seccion { padding-block: clamp(48px, 7vw, 88px); }
+.seccion--alt { background: var(--blanco); }
+.seccion__cabecera { max-width: 62ch; }
+.seccion__texto { margin-top: 14px; color: var(--tinta-2); max-width: 60ch; }
+
+.leyenda { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-weight: 500; }
+.leyenda__item { display: inline-flex; align-items: center; gap: 8px; }
+.leyenda__item::before { content: ""; width: 22px; height: 8px; border-radius: 2px; background: var(--c, var(--neutro)); }
+.leyenda__item--instalar  { --c: var(--neutro); }
+.leyenda__item--reparar   { --c: var(--fase); }
+.leyenda__item--certificar::before { background: repeating-linear-gradient(-45deg, var(--tierra-1) 0 4px, var(--tierra-2) 4px 8px); }
+.leyenda__item--nuevo     { --c: var(--grafito); }
+
+.servicios { margin-top: 22px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.servicio {
+  position: relative; display: flex; flex-direction: column; gap: 10px;
+  padding: 22px 22px 20px 30px; background: var(--blanco);
+  border: 1px solid var(--linea); border-radius: var(--radio);
+}
+.servicio::before {                         /* la barra lateral lleva el color del cable */
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 10px;
+  border-radius: var(--radio) 0 0 var(--radio); background: var(--c, var(--neutro));
+}
+.servicio--instalar  { --c: var(--neutro); }
+.servicio--reparar   { --c: var(--fase); }
+.servicio--nuevo     { --c: var(--grafito); }
+.servicio--certificar::before { background: repeating-linear-gradient(-45deg, var(--tierra-1) 0 8px, var(--tierra-2) 8px 16px); }
+.servicio__nombre { font-size: 1.35rem; font-weight: 700; line-height: 1.12; }
+.servicio__texto { color: var(--tinta-2); font-size: 1rem; flex: 1; }
+.servicio__link { align-self: flex-start; font-weight: 600; color: var(--neutro-osc); text-decoration: underline; text-underline-offset: 4px; padding-block: 6px; }
+.servicio__link:hover { color: var(--tinta); }
+
+/* ---------- 8. Urgencias ---------- */
+.urgencias { background: var(--tinta); color: #fff; padding-block: clamp(48px, 7vw, 80px); }
+.urgencias__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.urgencias__texto { margin-top: 14px; color: rgb(255 255 255 / .82); max-width: 46ch; }
+.urgencias__acciones { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; }
+.urgencias__pasos { display: grid; gap: 12px; counter-reset: paso; }
+.urgencias__pasos li {
+  counter-increment: paso; position: relative; padding: 16px 18px 16px 62px;
+  background: rgb(255 255 255 / .07); border-radius: var(--radio); line-height: 1.45;
+}
+.urgencias__pasos li::before {
+  content: counter(paso); position: absolute; left: 16px; top: 14px; width: 30px; height: 30px;
+  display: grid; place-items: center; border-radius: 50%; background: var(--alerta);
+  font: 800 1rem/1 var(--display);
+}
+
+/* ---------- 9. Cómo trabajamos ---------- */
+.pasos { margin-top: 36px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; position: relative; }
+.paso { position: relative; padding-top: 58px; }
+.paso::before {                              /* cable que une los pasos */
+  content: ""; position: absolute; top: 20px; left: 44px; right: -24px; height: 4px; border-radius: 2px;
+  background: var(--neutro);
+}
+.paso:last-child::before { display: none; }
+.paso__n {
+  position: absolute; top: 0; left: 0; width: 44px; height: 44px; display: grid; place-items: center;
+  border-radius: 50%; background: var(--tinta); color: #fff; font: 800 1.35rem/1 var(--display);
+}
+.paso__titulo { font-size: 1.3rem; font-weight: 700; line-height: 1.12; }
+.paso__texto { margin-top: 8px; color: var(--tinta-2); font-size: 1rem; }
+
+/* ---------- 10. Por qué elegirnos ---------- */
+.por-que { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.valores { display: grid; }
+.valor { padding-block: 18px; border-top: 1px solid var(--linea); display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 8px 24px; }
+.valor:last-child { border-bottom: 1px solid var(--linea); }
+.valor dt { font: 700 1.2rem/1.2 var(--display); font-stretch: 82%; }
+.valor dd { color: var(--tinta-2); }
+
+/* ---------- 11. Zonas ---------- */
+.zonas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 64px); align-items: center; }
+.zonas__lista { display: flex; flex-wrap: wrap; gap: 10px; }
+.zonas__lista li { padding: 10px 18px; background: var(--blanco); border: 1.5px solid var(--tinta); border-radius: 999px; font-weight: 600; }
+
+/* ---------- 12. Preguntas ---------- */
+.preguntas { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.pregunta { border-top: 1px solid var(--linea); }
+.pregunta:last-child { border-bottom: 1px solid var(--linea); }
+.pregunta summary {
+  list-style: none; cursor: pointer; padding: 18px 44px 18px 0; position: relative;
+  font: 600 1.1rem/1.3 var(--body);
+}
+.pregunta summary::-webkit-details-marker { display: none; }
+.pregunta summary::after {
+  content: "+"; position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  font: 500 1.7rem/1 var(--body); color: var(--neutro);
+}
+.pregunta[open] summary::after { content: "\2212"; }
+.pregunta p { padding: 0 44px 20px 0; color: var(--tinta-2); }
+
+/* ---------- 13. Contacto ---------- */
+.contacto { background: var(--neutro-osc); color: #fff; }
+.contacto__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.contacto__texto { margin-top: 14px; color: rgb(255 255 255 / .9); max-width: 46ch; }
+.contacto__datos { margin-top: 28px; display: grid; gap: 16px; }
+.contacto__datos li { display: grid; gap: 2px; }
+.contacto__datos span { font-weight: 600; font-size: .9rem; color: rgb(255 255 255 / .75); }
+.contacto__datos a { font: 700 1.5rem/1.2 var(--display); font-stretch: 85%; }
+.contacto :focus-visible { outline-color: #fff; }
+
+.form { background: var(--blanco); color: var(--tinta); border-radius: 12px; padding: clamp(20px, 3vw, 32px); display: grid; gap: 16px; }
+.campo { display: grid; gap: 6px; }
+.campo label { font-weight: 600; font-size: .95rem; }
+.req { color: var(--alerta); }
+.campo input, .campo select, .campo textarea {
+  width: 100%; min-height: 50px; padding: 12px 14px; background: #fff;
+  border: 1.5px solid #8C98A3; border-radius: var(--radio);
+}
+.campo textarea { resize: vertical; min-height: 110px; }
+.campo input:focus, .campo select:focus, .campo textarea:focus { outline: 3px solid var(--neutro); outline-offset: 1px; border-color: var(--neutro); }
+.form__error { color: var(--alerta); font-weight: 600; min-height: 1.4em; }
+.form__enviar { width: 100%; }
+.form__nota { font-size: .85rem; color: var(--tinta-2); text-align: center; }
+
+/* ---------- 14. Footer y botón flotante ---------- */
+.site-footer { background: var(--tinta); color: rgb(255 255 255 / .82); padding-block: 40px; }
+.footer__inner { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 28px 48px; }
+.footer__nombre { font-size: 1.5rem; font-weight: 800; color: #fff; }
+.footer__texto { margin-top: 6px; font-size: .95rem; }
+.footer__nav { display: flex; flex-wrap: wrap; gap: 8px 22px; align-content: start; }
+.footer__nav a { padding-block: 6px; }
+.footer__nav a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.footer__legal { grid-column: 1 / -1; padding-top: 22px; border-top: 1px solid rgb(255 255 255 / .18); font-size: .88rem; }
+
+.wa {
+  position: fixed; right: 20px; bottom: 20px; z-index: 90; width: 58px; height: 58px;
+  display: grid; place-items: center; border-radius: 50%; background: var(--whatsapp); color: #fff;
+  box-shadow: 0 6px 18px rgb(0 0 0 / .28); transition: transform .15s ease, opacity .2s ease, visibility .2s ease;
+}
+.wa:hover { transform: scale(1.06); }
+.wa.is-hidden { opacity: 0; visibility: hidden; }
+
+/* ---------- 15. Responsive ---------- */
+@media (max-width: 1000px) {
+  .servicios { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pasos { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 36px; }
+  .paso:nth-child(2)::before { display: none; }
+}
+
+@media (max-width: 900px) {
+  .burger { display: block; }
+  .nav {
+    position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--blanco); padding: 8px 24px 20px; border-bottom: 1px solid var(--linea);
+    box-shadow: 0 16px 24px rgb(20 32 44 / .12); display: none;
+  }
+  .nav.is-open { display: flex; }
+  .nav__link { padding: 14px 0; border-bottom: 1px solid var(--linea); }
+  .nav__cta { margin-top: 16px; }
+
+  .hero__grid, .urgencias__grid, .por-que, .zonas, .preguntas, .contacto__grid, .footer__inner { grid-template-columns: minmax(0, 1fr); }
+  .hero__title { max-width: 18ch; }
+  .valor { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .wrap { padding-inline: 18px; }
+  .topbar__text { font-size: .85rem; line-height: 1.3; }
+  .servicios { grid-template-columns: minmax(0, 1fr); }
+  .pasos { grid-template-columns: minmax(0, 1fr); }
+  .paso::before { display: none; }
+  .hero__actions .btn { width: 100%; }
+  .urgencias__acciones .btn { width: 100%; }
+  .tablero { padding: 16px; box-shadow: 5px 5px 0 var(--tinta); }
+  .tablero__riel { padding: 12px 8px; gap: 6px; }
+  .termica { min-height: 118px; }
+  .wa { right: 14px; bottom: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ==========================================================================
+     PLANTILLA · ELECTRICISTA
+     Todo lo que dice «COMPLETAR» es un dato de ejemplo: reemplazalo por los
+     tuyos antes de publicar (nombre, WhatsApp, teléfono, zonas, matrícula).
+     El número de WhatsApp y el teléfono se cambian UNA sola vez, arriba de
+     js/main.js. Leé LEEME.md para la lista completa.
+     ========================================================================== -->
+<title>Electricista matriculado en tu zona | Instalaciones, tableros y urgencias</title>
+<meta name="description" content="Instalaciones eléctricas, cambio de tableros, reparación de fallas y urgencias para hogares, comercios e industrias. Pedí tu presupuesto sin cargo por WhatsApp.">
+<meta name="theme-color" content="#14202C">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Electricista matriculado | Instalaciones, tableros y urgencias">
+<meta property="og:description" content="Instalaciones, tableros, reparaciones y urgencias eléctricas. Presupuesto sin cargo por WhatsApp.">
+<meta property="og:locale" content="es_AR">
+<!-- COMPLETAR: URL real del sitio y una imagen 1200x630 en img/share-preview.jpg -->
+<link rel="canonical" href="https://www.ejemplo.com.ar/">
+<meta property="og:url" content="https://www.ejemplo.com.ar/">
+<meta property="og:image" content="https://www.ejemplo.com.ar/img/share-preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Electrician",
+  "name": "Electricista Pro",
+  "description": "Instalaciones eléctricas, tableros, reparación de fallas y urgencias para hogares, comercios e industrias.",
+  "telephone": "+5491100000000",
+  "areaServed": "COMPLETAR: tu ciudad o zona",
+  "openingHours": "Mo-Fr 08:00-18:00",
+  "url": "https://www.ejemplo.com.ar/"
+}
+</script>
+</head>
+
+<body>
+
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<!-- ==========================================================================
+     BARRA DE URGENCIAS + HEADER
+     ========================================================================== -->
+<div class="topbar">
+  <div class="wrap topbar__inner">
+    <p class="topbar__text">¿Sin luz o con chispazos? Atendemos urgencias.</p>
+    <a class="topbar__phone" data-tel href="tel:+5491100000000">Llamar ahora</a>
+  </div>
+</div>
+
+<header class="site-header" id="header">
+  <div class="wrap header__inner">
+
+    <a class="brand" href="#inicio" aria-label="Electricista Pro, inicio">
+      <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="8" fill="currentColor"/>
+        <path d="M18.5 5 9 18h6l-1.5 9L23 14h-6z" fill="#fff"/>
+      </svg>
+      <span class="brand__name">Electricista Pro</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a class="nav__link" href="#servicios">Servicios</a>
+      <a class="nav__link" href="#urgencias">Urgencias</a>
+      <a class="nav__link" href="#proceso">Cómo trabajamos</a>
+      <a class="nav__link" href="#zonas">Zonas</a>
+      <a class="nav__link" href="#preguntas">Preguntas</a>
+      <a class="btn btn--primary nav__cta" data-wa="Hola, quiero pedir un presupuesto." href="#contacto">Pedir presupuesto</a>
+    </nav>
+
+    <button class="burger" id="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+</header>
+
+<main id="contenido">
+
+<!-- ==========================================================================
+     HERO: texto + tablero interactivo
+     ========================================================================== -->
+<section class="hero" id="inicio">
+  <div class="wrap hero__grid">
+
+    <div class="hero__copy">
+      <h1 class="hero__title">Electricidad segura, bien hecha y con garantía por escrito</h1>
+      <p class="hero__lead">
+        Instalamos, reparamos y certificamos redes eléctricas en hogares,
+        comercios e industrias. Antes de tocar nada, cortamos la llave general.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary btn--big" data-wa="Hola, quiero pedir un presupuesto." href="#contacto">Pedir presupuesto por WhatsApp</a>
+        <a class="btn btn--ghost btn--big" data-tel href="tel:+5491100000000">Llamar</a>
+      </div>
+      <ul class="hero__facts">
+        <li>Presupuesto sin cargo</li>
+        <li>Materiales con sello IRAM</li>
+        <li>Trabajos según reglamentación AEA 90364</li>
+      </ul>
+    </div>
+
+    <!-- Tablero: cada térmica es un botón. Lo maneja js/main.js (iniciarTablero). -->
+    <div class="tablero" id="tablero" role="group" aria-labelledby="tablero-titulo">
+      <div class="tablero__cabecera">
+        <h2 class="tablero__titulo" id="tablero-titulo">Probá el tablero</h2>
+        <p class="tablero__estado" id="tablero-estado" role="status" aria-live="polite">Todo energizado</p>
+      </div>
+
+      <div class="tablero__riel">
+        <button class="termica termica--general is-on" type="button" aria-pressed="true" data-circuito="general">
+          <span class="termica__palanca" aria-hidden="true"></span>
+          <span class="termica__nombre">General</span>
+        </button>
+        <button class="termica is-on" type="button" aria-pressed="true" data-circuito="luz">
+          <span class="termica__palanca" aria-hidden="true"></span>
+          <span class="termica__nombre">Luces</span>
+        </button>
+        <button class="termica is-on" type="button" aria-pressed="true" data-circuito="tomas">
+          <span class="termica__palanca" aria-hidden="true"></span>
+          <span class="termica__nombre">Tomas</span>
+        </button>
+        <button class="termica is-on" type="button" aria-pressed="true" data-circuito="aire">
+          <span class="termica__palanca" aria-hidden="true"></span>
+          <span class="termica__nombre">Aire</span>
+        </button>
+        <button class="termica is-on" type="button" aria-pressed="true" data-circuito="cocina">
+          <span class="termica__palanca" aria-hidden="true"></span>
+          <span class="termica__nombre">Cocina</span>
+        </button>
+      </div>
+
+      <ul class="tablero__cargas" aria-hidden="true">
+        <li class="carga is-on" data-carga="luz">
+          <svg viewBox="0 0 24 24"><path d="M9 21h6M10 17h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
+          <span>Luces</span>
+        </li>
+        <li class="carga is-on" data-carga="tomas">
+          <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M9 10v2M15 10v2M10 16h4"/></svg>
+          <span>Tomas</span>
+        </li>
+        <li class="carga is-on" data-carga="aire">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="8" rx="2"/><path d="M7 17c0 1.5-1 2-1 3M12 17c0 1.5-1 2-1 3M17 17c0 1.5-1 2-1 3"/></svg>
+          <span>Aire</span>
+        </li>
+        <li class="carga is-on" data-carga="cocina">
+          <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="9" cy="8" r="1.6"/><circle cx="15" cy="8" r="1.6"/><path d="M7 14h10"/></svg>
+          <span>Cocina</span>
+        </li>
+      </ul>
+
+      <p class="tablero__nota">Bajá la térmica general: así empezamos cada trabajo.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="tierra" aria-hidden="true"></div>
+
+<!-- ==========================================================================
+     SERVICIOS
+     El color de la barra de cada servicio sigue el de los cables:
+     celeste = instalar, marrón = reparar, verde-amarillo = medir y certificar,
+     grafito = tecnología nueva. Cada botón abre WhatsApp con el servicio escrito.
+     ========================================================================== -->
+<section class="seccion" id="servicios">
+  <div class="wrap">
+
+    <div class="seccion__cabecera">
+      <h2 class="h2">Qué hacemos</h2>
+      <p class="seccion__texto">Desde cambiar una llave hasta armar el tablero de un local. Contanos qué necesitás y te decimos cómo resolverlo.</p>
+    </div>
+
+    <ul class="leyenda" aria-label="Tipos de servicio">
+      <li class="leyenda__item leyenda__item--instalar">Instalar</li>
+      <li class="leyenda__item leyenda__item--reparar">Reparar</li>
+      <li class="leyenda__item leyenda__item--certificar">Medir y certificar</li>
+      <li class="leyenda__item leyenda__item--nuevo">Tecnología nueva</li>
+    </ul>
+
+    <div class="servicios">
+
+      <article class="servicio servicio--instalar">
+        <h3 class="servicio__nombre">Instalaciones nuevas</h3>
+        <p class="servicio__texto">Cableado, bocas, tomas y llaves para casas, departamentos, locales y obras. Con proyecto y cálculo de cargas.</p>
+        <a class="servicio__link" data-wa="Hola, quiero consultar por una instalación eléctrica nueva." href="#contacto">Consultar</a>
+      </article>
+
+      <article class="servicio servicio--instalar">
+        <h3 class="servicio__nombre">Tableros y protecciones</h3>
+        <p class="servicio__texto">Armado y cambio de tableros, térmicas, disyuntores diferenciales y protección contra sobretensiones.</p>
+        <a class="servicio__link" data-wa="Hola, quiero consultar por un tablero o protecciones." href="#contacto">Consultar</a>
+      </article>
+
+      <article class="servicio servicio--instalar">
+        <h3 class="servicio__nombre">Iluminación</h3>
+        <p class="servicio__texto">Luminarias LED, spots, tiras, iluminación exterior y de vidrieras. Menos consumo y mejor luz.</p>
+        <a class="servicio__link" data-wa="Hola, quiero consultar por iluminación." href="#contacto">Consultar</a>
+      </article>
+
+      <article class="servicio servicio--reparar">
+        <h3 class="servicio__nombre">Reparación de fallas</h3>
+        <p class="servicio__texto">Cortocircuitos, térmicas que saltan, tomas que no andan, cables recalentados. Buscamos la causa, no solo el síntoma.</p>
+        <a class="servicio__link" data-wa="Hola, tengo una falla eléctrica y necesito que la revisen." href="#contacto">Consultar</a>
+      </article>
+
+      <article class="servicio servicio--reparar">
+        <h3 class="servicio__nombre">Urgencias eléctricas</h3>
+        <p class="servicio__texto">Sin luz, chispazos u olor a quemado. Te decimos qué hacer mientras llegamos.</p>
+        <a class="servicio__link" data-wa="Hola, tengo una urgencia eléctrica." href="#urgencias">Ver qué hacer</a>
+      </article>
+
+      <article class="servicio servicio--certificar">
+        <h3 class="servicio__nombre">Puesta a tierra y mediciones</h3>
+        <p class="servicio__texto">Instalación de jabalinas, medición de resistencia de tierra y de aislación. Informe por escrito.</p>
+        <a class="servicio__link" data-wa="Hola, quiero consultar por puesta a tierra y mediciones." href="#contacto">Consultar</a>
+      </article>
+
+      <article class="servicio servicio--certificar">
+        <h3 class="servicio__nombre">Adecuaciones y habilitaciones</h3>
+        <p class="servicio__texto">Revisamos la instalación y la llevamos a norma para habilitar comercios, aseguradoras o ventas.</p>
+        <a class="servicio__link" data-wa="Hola, necesito adecuar una instalación para habilitación." href="#contacto">Consultar</a>
+      </article>
+
+      <article class="servicio servicio--nuevo">
+        <h3 class="servicio__nombre">Cargadores para autos eléctricos</h3>
+        <p class="servicio__texto">Línea dedicada y protecciones para cargar en casa, en el garage o en la empresa.</p>
+        <a class="servicio__link" data-wa="Hola, quiero consultar por un cargador para auto eléctrico." href="#contacto">Consultar</a>
+      </article>
+
+      <article class="servicio servicio--nuevo">
+        <h3 class="servicio__nombre">Paneles solares y domótica</h3>
+        <p class="servicio__texto">Conexión de paneles solares y automatización de luces, persianas y alarmas.</p>
+        <a class="servicio__link" data-wa="Hola, quiero consultar por paneles solares o domótica." href="#contacto">Consultar</a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     URGENCIAS: qué hacer antes de que llegue el electricista
+     ========================================================================== -->
+<section class="urgencias" id="urgencias">
+  <div class="wrap urgencias__grid">
+
+    <div class="urgencias__intro">
+      <h2 class="h2 h2--claro">Si hay chispazos, olor a quemado o una descarga</h2>
+      <p class="urgencias__texto">Estas cuatro acciones te protegen hasta que llegue un profesional. Después, llamanos.</p>
+      <div class="urgencias__acciones">
+        <a class="btn btn--alerta btn--big" data-tel href="tel:+5491100000000">Llamar por una urgencia</a>
+        <a class="btn btn--ghost-claro btn--big" data-wa="Hola, tengo una urgencia eléctrica." href="#contacto">Escribir por WhatsApp</a>
+      </div>
+    </div>
+
+    <ol class="urgencias__pasos">
+      <li><strong>Cortá la llave general</strong> del tablero, con la mano seca.</li>
+      <li><strong>No toques cables pelados</strong> ni enchufes que echan humo.</li>
+      <li><strong>No uses agua</strong> para apagar un fuego eléctrico. Si es grande, llamá a los bomberos.</li>
+      <li><strong>Sacá a las personas y mascotas</strong> de la zona hasta que esté revisada.</li>
+    </ol>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     CÓMO TRABAJAMOS (sí es una secuencia: por eso van numerados)
+     ========================================================================== -->
+<section class="seccion" id="proceso">
+  <div class="wrap">
+
+    <div class="seccion__cabecera">
+      <h2 class="h2">Cómo trabajamos</h2>
+      <p class="seccion__texto">Cuatro pasos, con precio cerrado antes de empezar.</p>
+    </div>
+
+    <ol class="pasos">
+      <li class="paso">
+        <span class="paso__n" aria-hidden="true">1</span>
+        <h3 class="paso__titulo">Nos contás qué pasa</h3>
+        <p class="paso__texto">Por WhatsApp o teléfono. Con una foto del tablero o de la falla, ya podemos orientarte.</p>
+      </li>
+      <li class="paso">
+        <span class="paso__n" aria-hidden="true">2</span>
+        <h3 class="paso__titulo">Visitamos y presupuestamos</h3>
+        <p class="paso__texto">Vemos la instalación en el lugar y te pasamos el presupuesto por escrito, con materiales y mano de obra.</p>
+      </li>
+      <li class="paso">
+        <span class="paso__n" aria-hidden="true">3</span>
+        <h3 class="paso__titulo">Hacemos el trabajo</h3>
+        <p class="paso__texto">Cortamos la tensión, trabajamos en orden y dejamos todo limpio y rotulado.</p>
+      </li>
+      <li class="paso">
+        <span class="paso__n" aria-hidden="true">4</span>
+        <h3 class="paso__titulo">Probamos y garantizamos</h3>
+        <p class="paso__texto">Medimos, probamos cada circuito y te entregamos el trabajo con garantía por escrito.</p>
+      </li>
+    </ol>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     POR QUÉ ELEGIRNOS
+     COMPLETAR: confirmá que cada punto sea cierto para tu negocio antes de publicar.
+     ========================================================================== -->
+<section class="seccion seccion--alt" id="por-que">
+  <div class="wrap por-que">
+
+    <div class="por-que__intro">
+      <h2 class="h2">Lo que no negociamos</h2>
+      <p class="seccion__texto">Una instalación eléctrica se hace una vez y tiene que durar décadas. Por eso:</p>
+    </div>
+
+    <dl class="valores">
+      <div class="valor">
+        <dt>Seguridad primero</dt>
+        <dd>Cortamos la tensión, usamos protección y verificamos antes de entregar.</dd>
+      </div>
+      <div class="valor">
+        <dt>Normas y materiales certificados</dt>
+        <dd>Trabajamos según la reglamentación AEA 90364 y usamos materiales con sello IRAM.</dd>
+      </div>
+      <div class="valor">
+        <dt>Precio claro</dt>
+        <dd>Presupuesto por escrito. Si aparece algo imprevisto, te lo consultamos antes de hacerlo.</dd>
+      </div>
+      <div class="valor">
+        <dt>Garantía por escrito</dt>
+        <dd>Cada trabajo se entrega con garantía y, si hace falta, con informe de mediciones.</dd>
+      </div>
+      <div class="valor">
+        <dt>Orden y limpieza</dt>
+        <dd>Cuidamos tus pisos y muebles, y nos llevamos los restos de obra.</dd>
+      </div>
+    </dl>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     OPINIONES · DESACTIVADO A PROPÓSITO
+
+     COMPLETAR: cuando tengas opiniones REALES de clientes (con su permiso),
+     descomentá este bloque. No inventes testimonios.
+
+     <section class="seccion" id="opiniones">
+       <div class="wrap">
+         <h2 class="h2">Lo que dicen nuestros clientes</h2>
+         <div class="opiniones">
+           <blockquote class="opinion">
+             <p>Texto real de la opinión.</p>
+             <cite>Nombre, barrio</cite>
+           </blockquote>
+         </div>
+       </div>
+     </section>
+     ========================================================================== -->
+
+<!-- ==========================================================================
+     ZONAS
+     COMPLETAR: reemplazá las zonas por las que realmente cubrís.
+     ========================================================================== -->
+<section class="seccion" id="zonas">
+  <div class="wrap zonas">
+
+    <div>
+      <h2 class="h2">Dónde trabajamos</h2>
+      <p class="seccion__texto">Cubrimos estas zonas y alrededores. Si la tuya no está, escribinos: seguro podemos ayudarte.</p>
+    </div>
+
+    <ul class="zonas__lista">
+      <li>Capital</li>
+      <li>Zona norte</li>
+      <li>Zona sur</li>
+      <li>Zona oeste</li>
+      <li>Alrededores</li>
+    </ul>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     PREGUNTAS FRECUENTES (details/summary: funcionan sin JavaScript)
+     COMPLETAR: ajustá las respuestas a tu forma real de trabajar.
+     ========================================================================== -->
+<section class="seccion seccion--alt" id="preguntas">
+  <div class="wrap preguntas">
+
+    <div class="preguntas__intro">
+      <h2 class="h2">Preguntas frecuentes</h2>
+      <p class="seccion__texto">Lo que más nos consultan antes de llamar.</p>
+    </div>
+
+    <div class="preguntas__lista">
+      <details class="pregunta" open>
+        <summary>¿Cuánto cuesta una visita?</summary>
+        <p>La visita y el presupuesto no tienen cargo. Se paga solo si decidís hacer el trabajo con nosotros.</p>
+      </details>
+      <details class="pregunta">
+        <summary>¿Qué hago si salta la térmica?</summary>
+        <p>Desconectá los aparatos del circuito y volvé a subirla. Si vuelve a saltar, no la fuerces: hay una falla o una sobrecarga y conviene que la revise un electricista.</p>
+      </details>
+      <details class="pregunta">
+        <summary>¿Atienden urgencias?</summary>
+        <p>Sí. Escribinos o llamanos y coordinamos la visita lo antes posible. Mientras tanto, seguí los pasos de la sección de urgencias.</p>
+      </details>
+      <details class="pregunta">
+        <summary>¿Dan garantía y factura?</summary>
+        <p>Sí. Todos los trabajos se entregan con garantía por escrito. Consultanos por la factura según el tipo de trabajo.</p>
+      </details>
+      <details class="pregunta">
+        <summary>¿Cuánto tarda cambiar un tablero?</summary>
+        <p>Depende del tamaño de la instalación. En una vivienda común suele resolverse en una jornada, y lo confirmamos en el presupuesto.</p>
+      </details>
+      <details class="pregunta">
+        <summary>¿Trabajan con empresas y obras?</summary>
+        <p>Sí: comercios, oficinas, industrias y obras nuevas. Para trabajos grandes armamos un plan con fechas.</p>
+      </details>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================================
+     CONTACTO: el formulario arma un mensaje de WhatsApp (no hay servidor)
+     ========================================================================== -->
+<section class="seccion contacto" id="contacto">
+  <div class="wrap contacto__grid">
+
+    <div class="contacto__info">
+      <h2 class="h2 h2--claro">Pedí tu presupuesto</h2>
+      <p class="contacto__texto">Completá los datos y se abre WhatsApp con tu consulta lista para enviar. Respondemos lo antes posible.</p>
+
+      <ul class="contacto__datos">
+        <li><span>WhatsApp y teléfono</span><a data-tel-texto data-tel href="tel:+5491100000000">+54 9 11 0000-0000</a></li>
+        <li><span>Horario</span>Lunes a viernes de 8 a 18 h. Urgencias, a toda hora. COMPLETAR</li>
+        <li><span>Zona</span>COMPLETAR: tu ciudad</li>
+      </ul>
+    </div>
+
+    <form class="form" id="form" novalidate>
+      <div class="campo">
+        <label for="f-nombre">Tu nombre <span class="req">*</span></label>
+        <input id="f-nombre" name="nombre" type="text" autocomplete="name" maxlength="80" required>
+      </div>
+      <div class="campo">
+        <label for="f-telefono">Tu teléfono <span class="req">*</span></label>
+        <input id="f-telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="Solo números" required>
+      </div>
+      <div class="campo">
+        <label for="f-trabajo">¿Qué necesitás?</label>
+        <select id="f-trabajo" name="trabajo">
+          <option value="">Elegí una opción</option>
+          <option>Instalación nueva</option>
+          <option>Tablero o protecciones</option>
+          <option>Reparar una falla</option>
+          <option>Urgencia</option>
+          <option>Iluminación</option>
+          <option>Puesta a tierra o mediciones</option>
+          <option>Adecuación para habilitación</option>
+          <option>Cargador para auto eléctrico</option>
+          <option>Paneles solares o domótica</option>
+          <option>Otra consulta</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="f-zona">Zona o barrio</label>
+        <input id="f-zona" name="zona" type="text" maxlength="80" autocomplete="address-level2">
+      </div>
+      <div class="campo">
+        <label for="f-mensaje">Contanos qué pasa</label>
+        <textarea id="f-mensaje" name="mensaje" rows="4" maxlength="500"></textarea>
+      </div>
+      <p class="form__error" id="form-error" role="alert"></p>
+      <button class="btn btn--primary btn--big form__enviar" type="submit">Enviar por WhatsApp</button>
+      <p class="form__nota">No guardamos tus datos: solo se usan para armar el mensaje.</p>
+    </form>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__inner">
+    <div class="footer__marca">
+      <p class="footer__nombre">Electricista Pro</p>
+      <p class="footer__texto">Instalaciones, tableros, reparaciones y urgencias eléctricas.</p>
+      <!-- COMPLETAR: número de matrícula, por ejemplo «Matrícula N° 0000» -->
+      <p class="footer__texto">Matrícula N° COMPLETAR</p>
+    </div>
+    <nav class="footer__nav" aria-label="Pie de página">
+      <a href="#servicios">Servicios</a>
+      <a href="#urgencias">Urgencias</a>
+      <a href="#proceso">Cómo trabajamos</a>
+      <a href="#zonas">Zonas</a>
+      <a href="#preguntas">Preguntas</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <p class="footer__legal">&copy; <span id="year">2026</span> Electricista Pro. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<a class="wa" id="wa" data-wa="Hola, quiero hacer una consulta." href="#contacto" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.896 9.83 9.83 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.82 11.82 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.82 11.82 0 0 0 20.465 3.49"/>
+  </svg>
+</a>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
