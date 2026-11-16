@@ -81,11 +81,11 @@
       if (telefono.replace(/\D/g, '').length < 7 || !/^[0-9+()\-\s]+$/.test(telefono)) faltan.push('tu teléfono (solo números)');
 
       if (faltan.length) {
-        error.textContent = 'Antes de enviar, completá ' + faltan.join(' y ') + '.';
+        error.textContent = 'Casi listo: te falta completar ' + faltan.join(' y ') + '.';
         return;
       }
 
-      var lineas = ['Hola, quiero pedir un presupuesto.', ''];
+      var lineas = ['Hola, ¿cómo andás? Quisiera pedir un presupuesto.', ''];
       lineas.push('Nombre: ' + nombre);
       lineas.push('Teléfono: ' + telefono);
       if (form.trabajo.value) lineas.push('Necesito: ' + form.trabajo.value);
@@ -94,7 +94,7 @@
 
       var url = enlaceWhatsApp(lineas.join('\n'));
       if (url.length > 2000) {
-        error.textContent = 'El mensaje es muy largo para WhatsApp. Acortá el detalle.';
+        error.textContent = 'El mensaje quedó muy largo para WhatsApp. Acortá un poco el detalle.';
         return;
       }
 
